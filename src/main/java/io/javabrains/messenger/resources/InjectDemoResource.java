@@ -7,7 +7,10 @@ import javax.ws.rs.MatrixParam;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.UriInfo;
 
 @Path("/demo")
 public class InjectDemoResource {
@@ -25,6 +28,15 @@ public class InjectDemoResource {
 				myStr += ", header: " + hParam;
 		}
 		return myStr;
+	}
+	
+	@GET
+	@Path("context")
+	public String getContextParams(@Context UriInfo uriInfo, @Context HttpHeaders headers) {
+		String path = uriInfo.getAbsolutePath().toString();
+		String cookies = headers.getCookies().toString();
+		
+		return ("Path: " + path + ", Cookies: " + cookies);
 	}
 	
 }
