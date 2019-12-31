@@ -13,7 +13,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import io.javabrains.messenger.models.Comment;
-import io.javabrains.messenger.models.Message;
 import io.javabrains.messenger.service.CommentService;
 
 @Path("/")
@@ -47,7 +46,8 @@ public class CommentResource {
 	}
 	
 	@GET
-	public Comment getComment(@PathParam("messageId") long msgId, @PathParam("commentId") long commentId) {
+	@Path("/{commentId}")
+	public Comment getMessage(@PathParam("messageId") long msgId, @PathParam("commentId") long commentId) {
 		return commentService.getComment(msgId, commentId);
 	}
 }
